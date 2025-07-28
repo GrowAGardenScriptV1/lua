@@ -1,23 +1,25 @@
--- Services
+-- SERVICES
 local Players = game:GetService("Players")
 local LocalPlayer = Players.LocalPlayer
 local PlayerGui = LocalPlayer:WaitForChild("PlayerGui")
 
--- Create UI
+-- UI CONTAINER
 local gui = Instance.new("ScreenGui")
 gui.Name = "FakeFruitStealUI"
 gui.ResetOnSpawn = false
 gui.Parent = PlayerGui
 
--- Main Frame
+-- MAIN FRAME
 local main = Instance.new("Frame")
 main.Size = UDim2.new(0, 300, 0, 250)
 main.Position = UDim2.new(0.5, -150, 0.5, -125)
 main.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
 main.BorderSizePixel = 0
+main.Active = true          -- ✅ Enables user interaction
+main.Draggable = true       -- ✅ Makes the frame draggable
 main.Parent = gui
 
--- Title
+-- TITLE
 local title = Instance.new("TextLabel")
 title.Text = "Fruit Steal v1.0"
 title.Size = UDim2.new(1, 0, 0, 30)
@@ -27,7 +29,7 @@ title.Font = Enum.Font.GothamBold
 title.TextSize = 18
 title.Parent = main
 
--- Search Box (just visual)
+-- SEARCH BOX
 local input = Instance.new("TextBox")
 input.PlaceholderText = "s"
 input.Size = UDim2.new(1, -20, 0, 30)
@@ -40,7 +42,7 @@ input.ClearTextOnFocus = false
 input.Text = ""
 input.Parent = main
 
--- Selected Player Display Frame
+-- PLAYER INFO FRAME
 local infoFrame = Instance.new("Frame")
 infoFrame.Size = UDim2.new(1, -20, 0, 70)
 infoFrame.Position = UDim2.new(0, 10, 0, 80)
@@ -48,7 +50,7 @@ infoFrame.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
 infoFrame.BorderSizePixel = 0
 infoFrame.Parent = main
 
--- Avatar Image
+-- AVATAR IMAGE
 local avatar = Instance.new("ImageLabel")
 avatar.Size = UDim2.new(0, 50, 0, 50)
 avatar.Position = UDim2.new(0, 10, 0.5, -25)
@@ -56,7 +58,7 @@ avatar.BackgroundTransparency = 1
 avatar.Image = "rbxasset://textures/ui/GuiImagePlaceholder.png"
 avatar.Parent = infoFrame
 
--- Username Label
+-- PLAYER NAME LABEL
 local nameLabel = Instance.new("TextLabel")
 nameLabel.Text = "Select a player"
 nameLabel.Position = UDim2.new(0, 70, 0, 5)
@@ -68,7 +70,7 @@ nameLabel.TextSize = 16
 nameLabel.TextXAlignment = Enum.TextXAlignment.Left
 nameLabel.Parent = infoFrame
 
--- ID Label
+-- ID LABEL
 local idLabel = Instance.new("TextLabel")
 idLabel.Text = "ID: -----------"
 idLabel.Position = UDim2.new(0, 70, 0, 35)
@@ -80,23 +82,24 @@ idLabel.TextSize = 14
 idLabel.TextXAlignment = Enum.TextXAlignment.Left
 idLabel.Parent = infoFrame
 
--- Buttons
-local stealBtn = Instance.new("TextButton")
-stealBtn.Text = "Select"
-stealBtn.Size = UDim2.new(0.45, -5, 0, 35)
-stealBtn.Position = UDim2.new(0.05, 0, 1, -45)
-stealBtn.BackgroundColor3 = Color3.fromRGB(80, 80, 80)
-stealBtn.TextColor3 = Color3.new(1, 1, 1)
-stealBtn.Font = Enum.Font.Gotham
-stealBtn.TextSize = 16
-stealBtn.Parent = main
+-- SELECT BUTTON
+local selectBtn = Instance.new("TextButton")
+selectBtn.Text = "Select"
+selectBtn.Size = UDim2.new(0.45, -5, 0, 35)
+selectBtn.Position = UDim2.new(0.05, 0, 1, -45)
+selectBtn.BackgroundColor3 = Color3.fromRGB(80, 80, 80)
+selectBtn.TextColor3 = Color3.new(1, 1, 1)
+selectBtn.Font = Enum.Font.Gotham
+selectBtn.TextSize = 16
+selectBtn.Parent = main
 
-local bypassBtn = stealBtn:Clone()
-bypassBtn.Text = "Close"
-bypassBtn.Position = UDim2.new(0.5, 5, 1, -45)
-bypassBtn.Parent = main
+-- CLOSE BUTTON
+local closeBtn = selectBtn:Clone()
+closeBtn.Text = "Close"
+closeBtn.Position = UDim2.new(0.5, 5, 1, -45)
+closeBtn.Parent = main
 
--- Made by label
+-- CREDIT LABEL
 local byLabel = Instance.new("TextLabel")
 byLabel.Text = "Made by @Zysume Hub"
 byLabel.Size = UDim2.new(1, 0, 0, 20)
@@ -108,20 +111,20 @@ byLabel.TextSize = 12
 byLabel.TextTransparency = 0.5
 byLabel.Parent = main
 
--- Player Select Logic
+-- PLAYER LOGIC
 local selectedPlayer = nil
 
-stealBtn.MouseButton1Click:Connect(function()
+selectBtn.MouseButton1Click:Connect(function()
 	if selectedPlayer then
 		print("You selected:", selectedPlayer.Name)
 	end
 end)
 
-bypassBtn.MouseButton1Click:Connect(function()
+closeBtn.MouseButton1Click:Connect(function()
 	gui:Destroy()
 end)
 
--- OPTIONAL: Show first player when typing
+-- SEARCH PLAYER WHEN TYPING
 input:GetPropertyChangedSignal("Text"):Connect(function()
 	local text = input.Text:lower()
 	for _, p in pairs(Players:GetPlayers()) do
