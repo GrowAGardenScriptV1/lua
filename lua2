@@ -6,17 +6,51 @@ local PlayerGui = LocalPlayer:WaitForChild("PlayerGui")
 -- UI CONTAINER
 local gui = Instance.new("ScreenGui")
 gui.Name = "FakeFruitStealUI"
+-- SERVICES
+local Players = game:GetService("Players")
+local LocalPlayer = Players.LocalPlayer
+local PlayerGui = LocalPlayer:WaitForChild("PlayerGui")
+
+-- UI CONTAINER
+local gui = Instance.new("ScreenGui")
+gui.Name = "FakeFruitStealUI"
 gui.ResetOnSpawn = false
 gui.Parent = PlayerGui
 
 -- MAIN FRAME
 local main = Instance.new("Frame")
 main.Size = UDim2.new(0, 300, 0, 250)
-main.Position = UDim2.new(0.5, -150, 0.5, -125)
+main.Position = UDim2.new(0, 20, 0.5, -125) -- 👈 Now placed on the left side
 main.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
 main.BorderSizePixel = 0
-main.Active = true          -- ✅ Enables user interaction
-main.Draggable = true       -- ✅ Makes the frame draggable
+main.Active = true
+main.Draggable = true
+main.Parent = gui
+
+-- TITLE
+local title = Instance.new("TextLabel")
+title.Text = "Fruit Steal v1.0"
+title.Size = UDim2.new(1, 0, 0, 30)
+title.BackgroundTransparency = 1
+-- SERVICES
+local Players = game:GetService("Players")
+local LocalPlayer = Players.LocalPlayer
+local PlayerGui = LocalPlayer:WaitForChild("PlayerGui")
+
+-- UI CONTAINER
+local gui = Instance.new("ScreenGui")
+gui.Name = "FakeFruitStealUI"
+gui.ResetOnSpawn = false
+gui.Parent = PlayerGui
+
+-- MAIN FRAME
+local main = Instance.new("Frame")
+main.Size = UDim2.new(0, 300, 0, 250)
+main.Position = UDim2.new(0, 20, 0.5, -125) -- 👈 Now placed on the left side
+main.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+main.BorderSizePixel = 0
+main.Active = true
+main.Draggable = true
 main.Parent = gui
 
 -- TITLE
